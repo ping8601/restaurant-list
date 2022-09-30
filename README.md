@@ -7,34 +7,42 @@ A restaurant list website built with Node.js and Express. It allows the users to
 <img width="1440" alt="image" src="https://user-images.githubusercontent.com/107028314/193062188-662851d6-63ee-4359-88a9-92810e775c15.png"> 
 
 ## Features
-1. Users can view all the restaurants in the list
-2. Users can search for the restaurants with keywords
-3. Users can view the detail of the restaurants by clicking on the cards
+* Users can view all the restaurants in the list
+* Users can search for the restaurants with keywords
+* Users can view the detail information of the restaurants by clicking on the cards
 
 # Getting Started
 
 ## Environment
-1. Node.js
+* Node.js and npm
 
 ## Installation
 1. Open the Terminal and clone the repo
 ```bash
 git clone https://github.com/ping8601/restaurant-list/
 ```
-2. Open the foler of the project
+2. Use the Terminal to open the folder of the project
 ```bash
 cd restaurantList
 ```
-3. Install NPM
+3. Install all the needed package with npm
 ```bash
 npm install
 ```
-4. Install nodemon
+4. Start the server
 ```bash
-npm install -g nodemon
+npm run start
 ```
-5. Start the server
+5. If you see this message, the server is successfully started
 ```bash
-npm reun dev
+Express is now listening on localhost:3000
 ```
-6. Open the brower and enter the link http://localhost:3000 to start exploring the website!
+6. Open your brower and enter the link http://localhost:3000 to start exploring the website!
+7. Press control + c to end the server
+
+# Development Tools
+* Node.js 16.7.0
+* Express 4.16.4
+* Express-Handlebars 3.0.0
+* Bootstrap 4.3.1
+* Font-awesome 5.8.1
