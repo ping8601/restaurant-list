@@ -27,8 +27,15 @@ app.get('/restaurants/:id', (req, res) => {
 })
 
 app.get('/search', (req, res) => {
-  const filteredRestaurants = restaurants.filter(restaurant => restaurant.name.toLowerCase().includes(req.query.keyword.toLowerCase()))
+  if (!req.query.keyword) {
+    return res.redirect("/")
+  }
+
   const keyword = req.query.keyword
+  const filteredRestaurants = restaurants.filter(restaurant => 
+    restaurant.name.toLowerCase().includes(keyword.toLowerCase()) ||
+    restaurant.category.toLowerCase().includes(keyword.toLowerCase()))
+
   let message = ""
   if (filteredRestaurants.length == 0) {
     message = "找不到結果，請嘗試不同關鍵字！"
