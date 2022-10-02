@@ -1,6 +1,6 @@
 // require express 
 const express = require('express')
-const app = express();
+const app = express()
 const port = 3000;
 
 // require express-handlebars
@@ -22,23 +22,23 @@ app.get('/', (req, res) => {
 })
 
 app.get('/restaurants/:id', (req, res) => {
-  const restaurant = restaurants.find(restaurant => restaurant.id == Number(req.params.id))
+  const restaurant = restaurants.find(restaurant => restaurant.id === Number(req.params.id))
   res.render('show', { restaurant })
 })
 
 app.get('/search', (req, res) => {
   if (!req.query.keyword) {
-    return res.redirect("/")
+    return res.redirect('/')
   }
 
-  const keyword = req.query.keyword
+  const keyword = req.query.keyword.trim()
   const filteredRestaurants = restaurants.filter(restaurant => 
     restaurant.name.toLowerCase().includes(keyword.toLowerCase()) ||
     restaurant.category.toLowerCase().includes(keyword.toLowerCase()))
 
   let message = ""
-  if (filteredRestaurants.length == 0) {
-    message = "找不到結果，請嘗試不同關鍵字！"
+  if (filteredRestaurants.length === 0) {
+    message = '找不到結果，請嘗試不同關鍵字！'
   }
   res.render('index', { restaurants: filteredRestaurants, keyword, message })
 })
