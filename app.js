@@ -23,6 +23,9 @@ db.once('open', () => {
   console.log('mongoDB connected!')
 })
 
+// use body-parser to refine all request
+app.use(express.urlencoded({ extended: true }))
+
 // set template engine
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
@@ -35,6 +38,21 @@ app.get('/', (req, res) => {
   Restaurant.find()
     .lean()
     .then(restaurants => { res.render('index', { restaurants }) })
+    .catch(error => console.error(error))
+})
+
+app.post('/restaurants', (req, res) => {
+  return Restaurant.create({
+    name: req.body.name,
+    category: req.body.category,
+    image: req.body.image,
+    location: req.body.location,
+    phone: req.body.phone,
+    google_map: req.body.google_map,
+    rating: req.body.rating,
+    description: req.body.description
+  })
+    .then(() => res.redirect('/'))
     .catch(error => console.error(error))
 })
 
