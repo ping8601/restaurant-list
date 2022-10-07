@@ -5,12 +5,11 @@ const port = 3000;
 
 // require mongoose
 const mongoose = require('mongoose')
+const Restaurant = require('./models/restaurant')
 
 // require express-handlebars
-const exphbs = require('express-handlebars')
-
-// require restaurant.json
-const restaurants = require('./restaurant.json').results
+const exphbs = require('express-handlebars');
+const restaurant = require('./models/restaurant');
 
 // link to mongoDB
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -33,7 +32,10 @@ app.use(express.static('public'))
 
 // set routes
 app.get('/', (req, res) => {
-  res.render('index', { restaurants })
+  Restaurant.find()
+    .lean()
+    .then(restaurants => { res.render('index', { restaurants }) })
+    .catch(error => console.error(error))
 })
 
 app.get('/restaurants/new', (req, res) => {
@@ -41,8 +43,11 @@ app.get('/restaurants/new', (req, res) => {
 })
 
 app.get('/restaurants/:id', (req, res) => {
-  const restaurant = restaurants.find(restaurant => restaurant.id === Number(req.params.id))
-  res.render('show', { restaurant })
+  const id = req.params.id
+  return Restaurant.findById(id)
+    .lean()
+    .then(restaurant => res.render('show', { restaurant }))
+    .catch(error => console.error(error))
 })
 
 app.get('/search', (req, res) => {
@@ -51,18 +56,18 @@ app.get('/search', (req, res) => {
   }
 
   const keyword = req.query.keyword.trim()
-  const filteredRestaurants = restaurants.filter(restaurant => 
-    restaurant.name.toLowerCase().includes(keyword.toLowerCase()) ||
-    restaurant.category.toLowerCase().includes(keyword.toLowerCase()))
-
-  let message = ""
-  if (filteredRestaurants.length === 0) {
-    message = '找不到結果，請嘗試不同關鍵字！'
-  }
-  res.render('index', { restaurants: filteredRestaurants, keyword, message })
+  const keywordForRegex = eval("/" + keyword + "/i"); 
+  
+  return Restaurant.find({$or : [{ "name": keywordForRegex}, {"category": keywordForRegex }]})
+    .lean()
+    .then((restaurants) => {
+      let message = ""
+      if (restaurants.length === 0) {
+        message = '找不到結果，請嘗試不同關鍵字！'
+      }
+      return res.render('index', {restaurants, keyword, message})
+    }).catch(error => console.error(error))
 })
-
-
 
 app.listen(port, () => {
   console.log(`Express is now listening on localhost:${port}`)
