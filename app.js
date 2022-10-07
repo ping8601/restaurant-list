@@ -36,6 +36,10 @@ app.get('/', (req, res) => {
   res.render('index', { restaurants })
 })
 
+app.get('/restaurants/new', (req, res) => {
+  res.render('new')
+})
+
 app.get('/restaurants/:id', (req, res) => {
   const restaurant = restaurants.find(restaurant => restaurant.id === Number(req.params.id))
   res.render('show', { restaurant })
@@ -57,6 +61,8 @@ app.get('/search', (req, res) => {
   }
   res.render('index', { restaurants: filteredRestaurants, keyword, message })
 })
+
+
 
 app.listen(port, () => {
   console.log(`Express is now listening on localhost:${port}`)
