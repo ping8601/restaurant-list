@@ -34,11 +34,17 @@ app.set('view engine', 'handlebars')
 app.use(express.static('public'))
 
 // set routes
+// show all restaurants
 app.get('/', (req, res) => {
   Restaurant.find()
     .lean()
     .then(restaurants => { res.render('index', { restaurants }) })
     .catch(error => console.error(error))
+})
+
+// add new restaurant
+app.get('/restaurants/new', (req, res) => {
+  return res.render('new')
 })
 
 app.post('/restaurants', (req, res) => {
@@ -53,6 +59,15 @@ app.post('/restaurants', (req, res) => {
     description: req.body.description
   })
     .then(() => res.redirect('/'))
+    .catch(error => console.error(error))
+})
+
+// edit restaurant
+app.get('/restaurants/:id/edit', (req, res) => {
+  const id = req.params.id
+  return Restaurant.findById(id)
+    .lean()
+    .then(restaurant => res.render('edit', { restaurant }))
     .catch(error => console.error(error))
 })
 
@@ -74,19 +89,7 @@ app.post('/restaurants/:id/edit', (req, res) => {
     .catch(error => console.error(error))
 })
 
-app.get('/restaurants/new', (req, res) => {
-  return res.render('new')
-})
-
-app.get('/restaurants/:id/edit', (req, res) => {
-  const id = req.params.id
-  return Restaurant.findById(id)
-    .lean()
-    .then(restaurant => res.render('edit', { restaurant }))
-    .catch(error => console.error(error))
-})
-
-
+// view restaurant
 app.get('/restaurants/:id', (req, res) => {
   const id = req.params.id
   return Restaurant.findById(id)
@@ -95,6 +98,16 @@ app.get('/restaurants/:id', (req, res) => {
     .catch(error => console.error(error))
 })
 
+// delete restaurant
+app.post('/restaurants/:id/delete', (req, res) => {
+  const id = req.params.id
+  return Restaurant.findById(id)
+    .then(restaurant => restaurant.remove())
+    .then(() => res.redirect('/'))
+    .catch(error => console.error(error))
+})
+
+// search restaurant
 app.get('/search', (req, res) => {
   if (!req.query.keyword) {
     return res.redirect('/')
