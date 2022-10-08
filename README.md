@@ -4,13 +4,13 @@ A restaurant list website built with Node.js and Express. It allows the users to
 
 ## Features
 * Users can view all the restaurants in the list
-![image](https://user-images.githubusercontent.com/107028314/194683967-bff53e5b-b0fd-4291-917b-a817ac9d8a1f.png)
+![image](https://user-images.githubusercontent.com/107028314/194684496-7b0ced65-7247-462d-8387-d1fe7fdd8841.png)
 * Users can search for the restaurants with keywords
-![image](https://user-images.githubusercontent.com/107028314/194684022-37d42002-eb62-4d8d-9efc-d691e2cbd3e2.png)
+![image](https://user-images.githubusercontent.com/107028314/194684514-66692d59-67d9-42bd-99cb-86e01364a8ef.png)
 * Users can view the detail information of the restaurants by clicking on the cards
-![image](https://user-images.githubusercontent.com/107028314/194684289-d9bcb5cd-7575-4544-b329-49582b102975.png)
+![image](https://user-images.githubusercontent.com/107028314/194684524-a4081063-c838-4778-8eb1-ff678f142a04.png)
 * Users can edit the detail of the restaurants
-![image](https://user-images.githubusercontent.com/107028314/194684246-4dc06d86-f531-42aa-98a9-892e8c4c56e5.png)
+![Uploading image.png…]()
 * Users can delete the restaurants
 
 # Getting Started
