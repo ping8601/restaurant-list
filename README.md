@@ -10,7 +10,7 @@ A restaurant list website built with Node.js and Express. It allows the users to
 * Users can view the detail information of the restaurants by clicking on the cards
 ![image](https://user-images.githubusercontent.com/107028314/194684524-a4081063-c838-4778-8eb1-ff678f142a04.png)
 * Users can edit the detail of the restaurants
-![Uploading image.png…]()
+![image](https://user-images.githubusercontent.com/107028314/194684567-b743da41-f8c7-41c2-b31c-0a0bbae287de.png)
 * Users can delete the restaurants
 
 # Getting Started
