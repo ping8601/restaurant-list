@@ -51,7 +51,7 @@ app.post('/restaurants', (req, res) => {
   return Restaurant.create({
     name: req.body.name,
     category: req.body.category,
-    image: req.body.image,
+    image: req.body.image ? req.body.image : 'https://artsmidnorthcoast.com/wp-content/uploads/2014/05/no-image-available-icon-6.png',
     location: req.body.location,
     phone: req.body.phone,
     google_map: req.body.google_map,
@@ -77,7 +77,7 @@ app.post('/restaurants/:id/edit', (req, res) => {
     .then(restaurant => {
       restaurant.name = req.body.name
       restaurant.category = req.body.category
-      restaurant.image = req.body.image
+      restaurant.image = req.body.image ? req.body.image : 'https://artsmidnorthcoast.com/wp-content/uploads/2014/05/no-image-available-icon-6.png'
       restaurant.location = req.body.location
       restaurant.phone = req.body.phone
       restaurant.google_map = req.body.google_map
