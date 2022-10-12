@@ -54,7 +54,7 @@
     <div class="col">
       <a href="/restaurants/{{ restaurant._id }}/edit" class="btn btn-outline-info mx-3 btn-block">Edit</a>
     </div>
-    <form action="/restaurants/{{ restaurant._id }}/delete" class="col" method="POST">
+    <form action="/restaurants/{{ restaurant._id }}?_method=DELETE" class="col" method="POST">
       <button type="submit" class="btn btn-outline-danger mx-3 btn-block">Delete</button>
     </form>
   </div>

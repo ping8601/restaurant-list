@@ -11,6 +11,9 @@ const Restaurant = require('./models/restaurant')
 const exphbs = require('express-handlebars');
 const restaurant = require('./models/restaurant');
 
+// require method-override
+const methodOverride = require('method-override')
+
 // link to mongoDB
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
 
@@ -22,6 +25,9 @@ db.on('error', () => {
 db.once('open', () => {
   console.log('mongoDB connected!')
 })
+
+// use method-override
+app.use(methodOverride('_method'))
 
 // use body-parser to refine all request
 app.use(express.urlencoded({ extended: true }))
@@ -71,7 +77,7 @@ app.get('/restaurants/:id/edit', (req, res) => {
     .catch(error => console.error(error))
 })
 
-app.post('/restaurants/:id/edit', (req, res) => {
+app.put('/restaurants/:id/', (req, res) => {
   const id = req.params.id
   return Restaurant.findById(id)
     .then(restaurant => {
@@ -99,7 +105,7 @@ app.get('/restaurants/:id', (req, res) => {
 })
 
 // delete restaurant
-app.post('/restaurants/:id/delete', (req, res) => {
+app.delete('/restaurants/:id', (req, res) => {
   const id = req.params.id
   return Restaurant.findById(id)
     .then(restaurant => restaurant.remove())
