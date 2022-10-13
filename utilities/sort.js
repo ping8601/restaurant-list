@@ -1,4 +1,4 @@
-function sorting(sortingType) {
+function sorting (sortingType) {
   switch (sortingType) {
     case '1':
       return { name: 'asc' }
@@ -6,8 +6,8 @@ function sorting(sortingType) {
       return { name: 'desc' }
     case '3':
       return { category: 'asc' }
-    case '4': 
-      return { location: 'asc'} 
+    case '4':
+      return { location: 'asc' }
   }
 }
 

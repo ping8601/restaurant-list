@@ -2,7 +2,6 @@ const express = require('express')
 const router = express.Router()
 const Restaurant = require('../../models/restaurant')
 const sorting = require('../../utilities/sort')
-const typeToObject = require('../../utilities/sort')
 
 // show all restaurants
 router.get('/', (req, res) => {
@@ -15,13 +14,13 @@ router.get('/', (req, res) => {
 // search restaurant
 router.get('/search', (req, res) => {
   const keyword = req.query.keyword.trim()
-  let keywordForRegex = eval('/' + keyword + '/i')
+  const keywordForRegex = eval('/' + keyword + '/i')
   const sortingType = req.query.sortingType
   const typeObject = {
-    isOne: sortingType === "1",
-    isTwo: sortingType === "2",
-    isThree: sortingType === "3",
-    isFour: sortingType === "4"
+    isOne: sortingType === '1',
+    isTwo: sortingType === '2',
+    isThree: sortingType === '3',
+    isFour: sortingType === '4'
   }
 
   if (!req.query.keyword) {
@@ -35,7 +34,7 @@ router.get('/search', (req, res) => {
 
   return Restaurant.find({ $or: [{ name: keywordForRegex }, { category: keywordForRegex }] })
     .lean()
-    .sort( sorting(sortingType) )
+    .sort(sorting(sortingType))
     .then((restaurants) => {
       let message = ''
       if (restaurants.length === 0) {
