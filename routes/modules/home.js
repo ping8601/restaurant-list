@@ -13,23 +13,14 @@ router.get('/', (req, res) => {
 
 // search restaurant
 router.get('/search', (req, res) => {
-  const keyword = req.query.keyword.trim()
-  const keywordForRegex = eval('/' + keyword + '/i')
+  let keyword = req.query.keyword.trim()
+  const keywordForRegex = new RegExp(keyword, 'i')
   const sortingType = req.query.sortingType
   const typeObject = {
     isOne: sortingType === '1',
     isTwo: sortingType === '2',
     isThree: sortingType === '3',
     isFour: sortingType === '4'
-  }
-
-  if (!req.query.keyword) {
-    return Restaurant.find()
-      .lean()
-      .sort(sorting(sortingType))
-      .then((restaurants) => {
-        return res.render('index', { restaurants, keyword, typeObject })
-      }).catch(error => console.error(error))
   }
 
   return Restaurant.find({ $or: [{ name: keywordForRegex }, { category: keywordForRegex }] })
