@@ -1,96 +1,108 @@
-<h1 class="mb-1 restaurant-show-title">新增餐廳</h1>
+<div class="row mt-5 form">
+  <div class="col-md-6 m-auto">
+    <div class="card card-body p-5">
+      <h1 class="text-center mb-5">Create Restaurant</h1>
 
-<form action="/restaurants" method="POST" class="container form-group" style="max-width: 500px;">
+      <form action="/restaurants" method="POST" class="container form-group">
 
-  <div class="row mt-3">
-    <div class="col-4">
-      <label for="name" class="col-form-label">名稱</label>
-    </div>
-    <div class="col-8">
-      <input type="text" id="name" class="form-control" name="name" placeholder="請填入餐廳名稱..." required>
+        <div class="row mt-3">
+          <div class="col-4">
+            <label for="name" class="col-form-label">Name</label>
+          </div>
+          <div class="col-8">
+            <input type="text" id="name" class="form-control" name="name" placeholder="Please enter restaurant name..." value="{{ restaurant.name }}" required>
+          </div>
+        </div>
+
+        <div class="row mt-3">
+          <div class="col-4">
+            <label for="category" class="col-form-label">Type</label>
+          </div>
+          <div class="col-8">
+            <select class="form-control" id="category" name="category">
+              <option selected>{{ restaurant.category }}</option>
+              <option value="American">American</option>
+              <option value="Brunch">Brunch</option>
+              <option value="Bar">Bar</option>
+              <option value="Cafe">Cafe</option>
+              <option value="Chinese">Chinese</option>
+              <option value="European">European</option>
+              <option value="Japanese">Japanese</option>
+              <option value="Korean">Korean</option>
+              <option value="Italian">Italian</option>
+              <option value="Middle Eastern">Middle Eastern</option>
+              <option value="Others">Others</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="row mt-3">
+          <div class="col-4">
+            <label for="image" class="col-form-label">Image URL</label>
+          </div>
+          <div class="col-8">
+            <input type="text" id="image" name="image" class="form-control" placeholder="Please enter image URL..."
+              value="{{ restaurant.image }}">
+          </div>
+        </div>
+        
+        <div class="row mt-3">
+          <div class="col-4">
+            <label for="location" class="col-form-label">Address</label>
+          </div>
+          <div class="col-8">
+            <input type="text" id="location" name="location" class="form-control"
+              placeholder="Please enter restanrant's address..." value="{{ restaurant.location }}" required>
+          </div>
+        </div>
+        
+        <div class="row mt-3">
+          <div class="col-4">
+            <label for="phone" class="col-form-label">Tel</label>
+          </div>
+          <div class="col-8">
+            <input type="text" id="phone" name="phone" class="form-control"
+              placeholder="Please enter restaurant's phone number..." value="{{ restaurant.phone }}" required>
+            <small id="phoneHelp" class="form-text text-muted">ex: 02 2363 8009</small>
+          </div>
+        </div>
+        
+        <div class="row mt-3">
+          <div class="col-4">
+            <label for="google_map" class="col-form-label">Google Maps URL</label>
+          </div>
+          <div class="col-8">
+            <input type="text" id="google_map" name="google_map" class="form-control"
+              placeholder="Please enter restaurant's Google Maps URL" value="{{ restaurant.google_map }}">
+          </div>
+        </div>
+        
+        <div class="row mt-3">
+          <div class="col-4">
+            <label for="rating" class="col-form-label">Rating</label>
+          </div>
+          <div class="col-8">
+            <input type="number" step="0.1" id="rating" name="rating" class="form-control"
+              placeholder="Please enter restaurant's rating..." value="{{ restaurant.rating }}">
+          </div>
+        </div>
+        
+        
+        <div class="row mt-3">
+          <div class="col-4">
+            <label for="description" class="col-form-label">Description</label>
+          </div>
+          <div class="col-8">
+            <textarea class="form-control" id="description" name="description" rows="3"
+              placeholder="Please enter restanrant's description...">{{ restaurant.description }}</textarea>
+          </div>
+        </div>
+        
+        <div class="row mt-5">
+          <a href="/" class="btn btn-outline-secondary btn-block">Return</a>
+          <button type="submit" class="btn btn-outline-info btn-block">Submit</button>
+        </div>
+      </form>
     </div>
   </div>
-
-  <div class="row mt-3">
-    <div class="col-4">
-      <label for="category" class="col-form-label">分類</label>
-    </div>
-    <div class="col-8">
-      <select class="form-control" id="category" name="category" placeholder="請填入餐廳名稱...">
-        <option selected >請選擇餐廳種類...</option>
-        <option value="中式料理">中式料理</option>
-        <option value="日式料理">日式料理</option>
-        <option value="韓式料理">韓式料理</option>
-        <option value="義式料理">義式料理</option>
-        <option value="歐陸料理">歐陸料理</option>
-        <option value="美式料理">美式料理</option>
-        <option value="中東料理">中東料理</option>
-        <option value="酒吧">早午餐</option>
-        <option value="酒吧">咖啡廳</option>
-        <option value="酒吧">酒吧</option>
-        <option value="酒吧">其他</option>
-      </select>
-    </div>
-  </div>
-
-  <div class="row mt-3">
-    <div class="col-4">
-      <label for="image" class="col-form-label">圖片網址</label>
-    </div>
-    <div class="col-8">
-      <input type="text" id="image" name="image" class="form-control" placeholder="請填入餐廳圖片網址...">
-    </div>
-  </div>
-
-  <div class="row mt-3">
-    <div class="col-4">
-      <label for="location" class="col-form-label">地址</label>
-    </div>
-    <div class="col-8">
-      <input type="text" id="location" name="location" class="form-control" placeholder="請填入餐廳地址..." required>
-    </div>
-  </div>
-
-  <div class="row mt-3">
-    <div class="col-4">
-      <label for="phone" class="col-form-label">聯絡電話</label>
-    </div>
-    <div class="col-8">
-      <input type="text" id="phone" name="phone" class="form-control" placeholder="請填入餐廳聯絡電話..." required>
-      <small id="phoneHelp" class="form-text text-muted">ex: 02 2363 8009</small>
-    </div>
-  </div>
-
-  <div class="row mt-3">
-    <div class="col-4">
-      <label for="google_map" class="col-form-label">Google Maps 連結</label>
-    </div>
-    <div class="col-8">
-      <input type="text" id="google_map" name="google_map" class="form-control" placeholder="請填入餐廳Google Maps 連結...">
-    </div>
-  </div>
-
-  <div class="row mt-3">
-    <div class="col-4">
-      <label for="number" class="col-form-label">評分</label>
-    </div>
-    <div class="col-8">
-      <input type="number" step="0.1" id="rating" name="rating" class="form-control" placeholder="請填入餐廳評分...">
-    </div>
-  </div>
-
-
-  <div class="row mt-3">
-    <div class="col-4">
-      <label for="description" class="col-form-label">描述</label>
-    </div>
-    <div class="col-8">
-      <textarea class="form-control" id="description" name="description" rows="3" placeholder="請填入餐廳描述..."></textarea>
-    </div>
-  </div>
-  
-  <div class="row mt-5 mb-5">
-    <a href="/" class="btn btn-outline-secondary btn-block">Return</a>
-    <button type="submit" class="btn btn-outline-secondary btn-block">Submit</button>
-  </div>
-</form>
+</div>

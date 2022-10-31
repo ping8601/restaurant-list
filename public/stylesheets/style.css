@@ -80,7 +80,7 @@ header {
 
 .form {
   position: relative;
-  top: -200px;
+  top: -250px;
 }
 
 @media screen and (max-width: 992px) {

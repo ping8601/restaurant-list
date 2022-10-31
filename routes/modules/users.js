@@ -9,4 +9,12 @@ router.post('/login', (req, res) => {
 
 })
 
+router.get('/register', (req, res) => {
+  res.render('register')
+})
+
+router.post('/register', (req, res) => {
+
+})
+
 module.exports = router

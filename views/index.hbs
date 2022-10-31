@@ -1,11 +1,11 @@
 <!-- search bar -->
 <div class="container search-bar">
   <div class="search-bar-outer">
-    <h4 class="mb-2">尋找餐廳：</h4>
+    <h4 class="mb-2">Find Restaurants:</h4>
     <div class="search-bar-inner">
       <form class="row" action="/search">
         <div class="col-9 input-group">
-          <input type="text" name="keyword" class="form-control" placeholder="輸入餐廳、分類" aria-label="Restaurant Name..."
+          <input type="text" name="keyword" class="form-control" placeholder="Plase enter restaurant's name or type..." aria-label="Restaurant Name..."
             value="{{ keyword }}" aria-describedby="search-button">
           <div class="input-group-append">
             <button class="btn btn-major" type="submit" id="search-button"><i class="fas fa-search"></i></button>
@@ -15,8 +15,8 @@
           <select class="form-control" id="sortingType" name="sortingType" onchange="submit();">
             <option value="1" {{#if typeObject.isOne }}selected{{/if}}>A → Z</option>
             <option value="2" {{#if typeObject.isTwo }}selected{{/if}}>Z → A</option>
-            <option value="3" {{#if typeObject.isThree }}selected{{/if}}>類別</option>
-            <option value="4" {{#if typeObject.isFour }}selected{{/if}}>地區</option>
+            <option value="3" {{#if typeObject.isThree }}selected{{/if}}>Type</option>
+            <option value="4" {{#if typeObject.isFour }}selected{{/if}}>Area</option>
           </select>
         </div>
       </form>
