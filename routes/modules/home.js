@@ -5,7 +5,8 @@ const sorting = require('../../utilities/sort')
 
 // show all restaurants
 router.get('/', (req, res) => {
-  Restaurant.find()
+  const userId = req.user._id
+  return Restaurant.find({ userId })
     .lean()
     .then(restaurants => { res.render('index', { restaurants }) })
     .catch(error => console.error(error))
@@ -15,6 +16,7 @@ router.get('/', (req, res) => {
 router.get('/search', (req, res) => {
   let keyword = req.query.keyword.trim()
   const keywordForRegex = new RegExp(keyword, 'i')
+  const userId = req.user._id
   const sortingType = req.query.sortingType
   const typeObject = {
     isOne: sortingType === '1',
@@ -23,7 +25,11 @@ router.get('/search', (req, res) => {
     isFour: sortingType === '4'
   }
 
-  return Restaurant.find({ $or: [{ name: keywordForRegex }, { category: keywordForRegex }] })
+  return Restaurant.find({
+      $and: [
+          { $or: [{ name: keywordForRegex }, { category: keywordForRegex }] },
+          { userId }
+      ]})
     .lean()
     .sort(sorting(sortingType))
     .then((restaurants) => {

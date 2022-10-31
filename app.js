@@ -6,6 +6,7 @@ const session = require('express-session')
 
 const routes = require('./routes')
 const usePassport = require('./config/passport')
+const passport = require('./config/passport')
 require('./config/mongoose')
 
 const app = express()
@@ -33,6 +34,13 @@ app.use(session({
 
 // use passport
 usePassport(app)
+
+// add a middleware to add variables for view engine
+app.use((req, res, next) => {
+  res.locals.isAuthenticated = req.isAuthenticated()
+  res.locals.user = req.user
+  next()
+})
 
 // set routes
 app.use(routes)
