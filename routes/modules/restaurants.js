@@ -12,7 +12,7 @@ router.post('/', (req, res) => {
   return Restaurant.create({
     name,
     category,
-    image: image ? image : 'https://artsmidnorthcoast.com/wp-content/uploads/2014/05/no-image-available-icon-6.png',
+    image: image || 'https://artsmidnorthcoast.com/wp-content/uploads/2014/05/no-image-available-icon-6.png',
     location,
     phone,
     google_map,
@@ -42,7 +42,7 @@ router.put('/:id', (req, res) => {
     .then(restaurant => {
       restaurant.name = name
       restaurant.category = category
-      restaurant.image = image ? image : 'https://artsmidnorthcoast.com/wp-content/uploads/2014/05/no-image-available-icon-6.png'
+      restaurant.image = image || 'https://artsmidnorthcoast.com/wp-content/uploads/2014/05/no-image-available-icon-6.png'
       restaurant.location = location
       restaurant.phone = phone
       restaurant.google_map = google_map
@@ -70,10 +70,10 @@ router.delete('/:id', (req, res) => {
   const userId = req.user._id
   return Restaurant.findOne({ _id, userId })
     .then((restaurant) => {
-      if (restaurant!= null) {
+      if (restaurant != null) {
         return restaurant.remove()
       }
-      }).then(() => res.redirect('/'))
+    }).then(() => res.redirect('/'))
     .catch(error => console.error(error))
 })
 

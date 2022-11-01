@@ -9,7 +9,7 @@ router.get('/login', (req, res) => {
   res.render('login')
 })
 
-router.post('/login', passport.authenticate('local', { 
+router.post('/login', passport.authenticate('local', {
   successRedirect: '/',
   failureRedirect: '/users/login',
   failureFlash: true,
@@ -27,13 +27,13 @@ router.get('/register', (req, res) => {
 })
 
 router.post('/register', (req, res) => {
-  const {name, email, password, confirmPassword } = req.body
+  const { name, email, password, confirmPassword } = req.body
   const errors = []
   if (!email || !password || !confirmPassword) {
     errors.push({ message: 'Email, password and confirm password are required fields!' })
   }
   if (password !== confirmPassword) {
-    errors.push({ message: 'Passwords mismatch, please check again.'})
+    errors.push({ message: 'Passwords mismatch, please check again.' })
   }
   if (errors.length) {
     return res.render('register', {
@@ -41,30 +41,32 @@ router.post('/register', (req, res) => {
       name,
       password,
       confirmPassword
-  })}
+    })
+  }
   User.findOne({ email })
-  .then(user => {
-    errors.push({ message: 'This email is already registerd!' })
-    if (user) {
-      return res.render('register', {
-        errors,
-        name,
-        email,
-        password,
-        confirmPassword
-      })
-    } else {
-      return bcrypt.genSalt(10)
-        .then(salt => bcrypt.hash(password, salt))
-        .then(hash => User.create({
-        name: name ? name : email.substring(0, email.indexOf('@')),
-        email,
-        password: hash
-        }))
-        .then(() => res.redirect('/'))
-        .catch(error => console.error)
-    }
-  }) 
+    .then(user => {
+      errors.push({ message: 'This email is already registerd!' })
+      if (user) {
+        return res.render('register', {
+          errors,
+          name,
+          email,
+          password,
+          confirmPassword
+        })
+      } else {
+        return bcrypt.genSalt(10)
+          .then(salt => bcrypt.hash(password, salt))
+          .then(hash => User.create({
+            name: name || email.substring(0, email.indexOf('@')),
+            email,
+            password: hash
+          }))
+          .then(() => res.redirect('/'))
+          .catch(error => console.error(error))
+      }
+    })
+    .catch(error => console.error(error))
 })
 
 module.exports = router

@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
 
 // search restaurant
 router.get('/search', (req, res) => {
-  let keyword = req.query.keyword.trim()
+  const keyword = req.query.keyword.trim()
   const keywordForRegex = new RegExp(keyword, 'i')
   const userId = req.user._id
   const sortingType = req.query.sortingType
@@ -26,10 +26,11 @@ router.get('/search', (req, res) => {
   }
 
   return Restaurant.find({
-      $and: [
-          { $or: [{ name: keywordForRegex }, { category: keywordForRegex }] },
-          { userId }
-      ]})
+    $and: [
+      { $or: [{ name: keywordForRegex }, { category: keywordForRegex }] },
+      { userId }
+    ]
+  })
     .lean()
     .sort(sorting(sortingType))
     .then((restaurants) => {

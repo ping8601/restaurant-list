@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 // link to mongoDB
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
 
-mongoose.set('useCreateIndex', true);
+mongoose.set('useCreateIndex', true)
 
 // check database connection
 const db = mongoose.connection
