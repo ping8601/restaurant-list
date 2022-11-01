@@ -10,33 +10,51 @@ router.get('/login', (req, res) => {
 
 router.post('/login', passport.authenticate('local', { 
   successRedirect: '/',
-  failureRedirect: '/users/login'
+  failureRedirect: '/users/login',
+  failureFlash: true
 }))
 
 router.get('/logout', (req, res) => {
   req.logout()
-  res.redirect('/users/login')
+  req.flash('success_msg', 'You have successfully logged out!')
+  return res.redirect('/users/login')
 })
 
 router.get('/register', (req, res) => {
-  res.render('register')
+  return res.render('register')
 })
 
 router.post('/register', (req, res) => {
   const {name, email, password, confirmPassword } = req.body
+  const errors = []
+  if (!email || !password || !confirmPassword) {
+    errors.push({ message: 'Email, password and confirm password are required fields!' })
+  }
+  if (password !== confirmPassword) {
+    errors.push({ message: 'Passwords mismatch, please check again.'})
+  }
+  if (errors.length) {
+    return res.render('register', {
+      errors,
+      name,
+      password,
+      confirmPassword
+  })}
   User.findOne({ email })
   .then(user => {
+    errors.push({ message: 'This email is already registerd!' })
     if (user) {
-      console.log('User already exists.')
       return res.render('register', {
+        errors,
         name,
         email,
         password,
         confirmPassword
       })
     } else {
+      req.flash('success', 'You have successfullly registerd.')
       return User.create({
-        name,
+        name: name ? name : email.substring(0, email.indexOf('@')),
         email,
         password
       })
