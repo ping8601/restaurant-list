@@ -5,13 +5,17 @@ const methodOverride = require('method-override')
 const session = require('express-session')
 const flash = require('connect-flash')
 
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
+
 const routes = require('./routes')
 const usePassport = require('./config/passport')
 const passport = require('./config/passport')
 require('./config/mongoose')
 
 const app = express()
-const port = 3000
+const port = process.env.PORT
 
 // use body-parser to refine all request
 app.use(express.urlencoded({ extended: true }))
@@ -28,7 +32,7 @@ app.use(methodOverride('_method'))
 
 // use session
 app.use(session({
-  secret: 'MySecret',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true
 }))
