@@ -23,8 +23,8 @@ module.exports = app => {
               if (!isMatch) {
                 return done(null, false, { message: 'Email or password incorrect!' })
               }
+              return done(null, user)
             })
-          return done(null, user)
         })
         .catch(error => done(error, false))
     }))
